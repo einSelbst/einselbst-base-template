@@ -25,8 +25,8 @@ Basic Tooling for new repos.
 - fnm, a better nvm, to install node 18
 
 ```zsh
-  brew install fnm
-  fnm install 18
+brew install fnm
+fnm install 18
 ```
 
 - pnpm, a better npm
@@ -34,14 +34,14 @@ Basic Tooling for new repos.
 - fauna shell
 
 ```zsh
-  brew install fauna-shell # or
-  pnpm i -g fauna-shell
+brew install fauna-shell # or
+pnpm i -g fauna-shell
 ```
 
 - aws amplify console
 
 ```zsh
-  pnpm i -g @aws-amplify/cli  # for amplify deploys
+pnpm i -g @aws-amplify/cli # for amplify deploys
 ```
 
 ## Environment Variables
@@ -57,8 +57,8 @@ To run this project, you will need to add the following environment variables to
 Install my-project with npm
 
 ```zsh
-  pnpm install my-project
-  cd my-project
+pnpm install my-project
+cd my-project
 ```
 
 ## Run Locally
@@ -66,19 +66,19 @@ Install my-project with npm
 Install dependencies
 
 ```zsh
-  pnpm install
+pnpm install
 ```
 
 Start the server
 
 ```zsh
-  pnpm start
+pnpm start
 ```
 
 Development mode
 
 ```zsh
-  pnpm dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -92,7 +92,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 To run tests, run the following command
 
 ```zsh
-  pnpm test
+pnpm test
 ```
 
 ## Docker
@@ -104,7 +104,7 @@ To run tests, run the following command
 ### Fauna
 
 ```zsh
-  pnpm fauna:local  # open fauna shell connected to local docker fauna db
+pnpm fauna:local # open fauna shell connected to local docker fauna db
 ```
 
 ## Deployment
@@ -112,7 +112,7 @@ To run tests, run the following command
 To deploy this project run
 
 ```zsh
-  pnpm deploy
+pnpm deploy
 ```
 
 ### Vercel
