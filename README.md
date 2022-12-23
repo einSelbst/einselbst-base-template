@@ -15,9 +15,9 @@
 
 </details>
 
-# Next2Nothing
+# einSelbst Base Template
 
-Another opiniated starter for next.js, an evolution of [https://github/einselbst/overnext](Overnext).
+Basic Tooling for new repos.
 
 ## Prerequisites
 
@@ -25,8 +25,8 @@ Another opiniated starter for next.js, an evolution of [https://github/einselbst
 - fnm, a better nvm, to install node 18
 
 ```zsh
-brew install fnm
-fnm install 18
+  brew install fnm
+  fnm install 18
 ```
 
 - pnpm, a better npm
@@ -34,23 +34,14 @@ fnm install 18
 - fauna shell
 
 ```zsh
-brew install fauna-shell # or
-pnpm i -g fauna-shell
+  brew install fauna-shell # or
+  pnpm i -g fauna-shell
 ```
 
 - aws amplify console
 
 ```zsh
-f i -g @aws-amplify/cli  # for amplify deploys
-```
-
-## Installation
-
-Install my-project with npm
-
-```zsh
-  pnpm install my-project
-  cd my-project
+  pnpm i -g @aws-amplify/cli  # for amplify deploys
 ```
 
 ## Environment Variables
@@ -60,6 +51,15 @@ To run this project, you will need to add the following environment variables to
 `API_KEY`
 
 `ANOTHER_API_KEY`
+
+## Installation
+
+Install my-project with npm
+
+```zsh
+  pnpm install my-project
+  cd my-project
+```
 
 ## Run Locally
 
@@ -104,7 +104,7 @@ To run tests, run the following command
 ### Fauna
 
 ```zsh
-pnpm fauna:local  # open fauna shell connected to local docker fauna db
+  pnpm fauna:local  # open fauna shell connected to local docker fauna db
 ```
 
 ## Deployment
@@ -189,6 +189,8 @@ Takes two numbers and returns the sum.
 **Server:** Node, Express
 
 ## Features
+
+### Examples
 
 - Light/dark mode toggle
 - Live previews
