@@ -15,11 +15,15 @@
   "bugs": "https://github.com/einSelbst/next2nothing/issues",
   "scripts": {
     "prepare": "is-ci || husky install",
+    "preinstall": "is-ci || npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1",
     " ------------------------- Linting ------------------------- ": "",
     "?format": "echo Format source code and fix issues",
     "format": "prettier --check --write --ignore-unknown .",
     "?": "npm-scripts-info"
+  },
+  "dependencies": {
+    "is-ci": "3.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.3.0",
