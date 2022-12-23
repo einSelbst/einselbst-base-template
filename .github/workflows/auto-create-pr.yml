@@ -1,0 +1,110 @@
+# https://github.com/thomaseizinger/create-pull-request
+name: 'Create PR'
+
+on:
+  create:
+    branches:
+      - '**'
+
+jobs:
+  create-pr-for-branch:
+    if: |
+      contains(github.ref, 'einSelbst') == false &&
+      contains(github.ref, 'dependabot') == false &&
+      contains(github.ref, 'renovate') == false
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: JasonEtco/smee-action@v2
+        with:
+          channel: grW1TqGJMKSq2S
+
+      - name: Generate branch name
+        uses: actions/github-script@v6
+        id: set-branch-name
+        with:
+          script: |
+            const capitalize = (name) => name.charAt(0).toUpperCase() + name.slice(1);
+            const emoji = context.payload.ref.startsWith("refs/heads/feature")
+              ? "✨ "
+              : context.payload.ref.startsWith("refs/heads/hotfix")
+              ? "� "
+              : "";
+            return `${emoji}${capitalize(
+              context.payload.ref
+                .replace("refs/heads/", "")
+                .replace(/-/g, " ")
+                .replace("feature ", "")
+                .replace("hotfix ", "")
+            )}`;
+          result-encoding: string
+
+      - name: Set branch name
+        id: extract_branch
+        shell: bash
+        run: |
+          # echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          # echo "##[set-output name=branch;]$(echo ${{steps.set-branch-name.outputs.result}})"
+          echo "##[set-output name=branch;] ${{steps.set-branch-name.outputs.result}}"
+          # echo "PULL_REQUEST_TITLE=${{steps.set-branch-name.outputs.result}}" >> $GITHUB_ENV
+
+      - uses: FranzDiebold/github-env-vars-action@v2
+      - name: Print environment variables
+        run: |
+          echo "CI_REPOSITORY_SLUG=$CI_REPOSITORY_SLUG"
+          echo "CI_REPOSITORY_OWNER=$CI_REPOSITORY_OWNER"
+          echo "CI_REPOSITORY_OWNER_SLUG=$CI_REPOSITORY_OWNER_SLUG"
+          echo "CI_REPOSITORY_NAME=$CI_REPOSITORY_NAME"
+          echo "CI_REPOSITORY_NAME_SLUG=$CI_REPOSITORY_NAME_SLUG"
+          echo "CI_REPOSITORY=$CI_REPOSITORY"
+          echo "CI_REF_SLUG=$CI_REF_SLUG"
+          echo "CI_ACTION_REF_NAME=$CI_ACTION_REF_NAME"
+          echo "CI_ACTION_REF_NAME_SLUG=$CI_ACTION_REF_NAME_SLUG"
+          echo "CI_REF_NAME=$CI_REF_NAME"
+          echo "CI_REF_NAME_SLUG=$CI_REF_NAME_SLUG"
+          echo "CI_REF=$CI_REF"
+          echo "CI_SHA_SHORT=$CI_SHA_SHORT"
+          echo "CI_SHA=$CI_SHA"
+          echo "CI_ACTOR=$CI_ACTOR"
+          echo "CI_EVENT_NAME=$CI_EVENT_NAME"
+          echo "CI_RUN_ID=$CI_RUN_ID"
+          echo "CI_RUN_NUMBER=$CI_RUN_NUMBER"
+          echo "CI_WORKFLOW=$CI_WORKFLOW"
+          echo "CI_ACTION=$CI_ACTION"
+
+      - name: Create pull request to main
+        uses: thomaseizinger/create-pull-request@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          head: ${{ github.ref }}
+          base: main
+          draft: true
+          title: ${{ steps.extract_branch.outputs.branch }}
+          body: |
+            Hi!
+            This PR was created in response to a new branch pushed from "${{ github.actor }}".
+            I will do the following things for you:
+              - deploy to vercel
+              - deploy to netlify
+              - run lighthouse check on vercel and add the results
+              - create a task in the project board
+              - ...wip
+
+            Initially this PR is a draft. When you are done coding, set it to 'Ready for Review'
+            and a few more checks will be performed. You can also set the branch to 'auto-merge' then.
+
+      # GitHub Action does not allow recursion so the CI checks are
+      # not triggered when the branch is pushed
+      - name: Trigger CI checks for new pull request
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.ACTION_TOKEN }}
+          event-type: new-pull-request
+          client-payload: |
+            {
+            "branch-name": "${{ steps.extract_branch.outputs.branch }}",
+            "ref": "${{ github.ref }}",
+            "sha": "${{ github.sha }}"
+            }
