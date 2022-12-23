@@ -1,0 +1,19 @@
+# Ignore everything (folders and files) on root only
+#/*
+
+# Re-add some folders
+#!/src
+#!/public
+
+# ignore for sure
+node_modules
+pnpm-lock.yaml
+.next
+.husky
+.nyc_output
+out
+next-env.d.ts
+public
+report.*
+docs
+coverage

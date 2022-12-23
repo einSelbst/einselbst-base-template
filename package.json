@@ -1,0 +1,34 @@
+{
+  "name": "next2nothing",
+  "version": "0.1.0",
+  "description": "Another opinionated next.js typescript boilerplate",
+  "private": true,
+  "license": "BSD 3",
+  "homepage": "",
+  "author": "einSelbst",
+  "keywords": [
+    "next.js",
+    "i18n",
+    "typescript"
+  ],
+  "repository": "https://github.com/einSelbst/next2nothing",
+  "bugs": "https://github.com/einSelbst/next2nothing/issues",
+  "scripts": {
+    "prepare": "is-ci || husky install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    " ------------------------- Linting ------------------------- ": "",
+    "?format": "echo Format source code and fix issues",
+    "format": "prettier --check --write --ignore-unknown .",
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.3.0",
+    "@commitlint/config-conventional": "17.3.0",
+    "git-format-staged": "3.0.0",
+    "husky": "8.0.2",
+    "lint-staged": "13.1.0",
+    "prettier": "2.8.1"
+  },
+  "engines": {
+    "pnpm": ">=7"
+  }
+}
