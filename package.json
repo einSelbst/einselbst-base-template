@@ -19,6 +19,7 @@
     " ------------------------- Linting ------------------------- ": "",
     "?format": "echo Format source code and fix issues",
     "format": "prettier --check --write --ignore-unknown .",
+    "?": "npm-scripts-info"
   },
   "devDependencies": {
     "@commitlint/cli": "17.3.0",
@@ -26,6 +27,7 @@
     "git-format-staged": "3.0.0",
     "husky": "8.0.2",
     "lint-staged": "13.1.0",
+    "npm-scripts-info": "0.3.9",
     "prettier": "2.8.1"
   },
   "engines": {
